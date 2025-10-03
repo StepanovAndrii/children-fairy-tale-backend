@@ -1,4 +1,6 @@
 using Api.Endpoints;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,10 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
     });
 });
+
+builder.Services.AddDbContext<KazkaDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSQL"))
+);
 
 var app = builder.Build();
 
