@@ -1,17 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36408.4 d17.14
+VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{E900F775-8F31-4C6D-B4ED-CC0324035099}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildrenFairyTaleBackend.Domain", "ChildrenFairyTaleBackend.Logic\ChildrenFairyTaleBackend.Domain.csproj", "{F522F2B1-7970-4CB5-93F4-50402CA2A450}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{CA7472D0-DE8F-429C-B68E-5C871E209387}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{13C710BD-C6E2-488C-B205-2A8A5CA68823}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{3571299F-61E7-4EE7-8305-ECABF2F7991B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Persistence\Persistence.csproj", "{6987E9A0-46D5-4334-ACD1-32FD2C717440}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildrenFairyTaleBackend.Tests", "ChildrenFairyTaleBackend.Tests\ChildrenFairyTaleBackend.Tests.csproj", "{3F431FBA-6611-424D-ACF0-71853402E630}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,26 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E900F775-8F31-4C6D-B4ED-CC0324035099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E900F775-8F31-4C6D-B4ED-CC0324035099}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E900F775-8F31-4C6D-B4ED-CC0324035099}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E900F775-8F31-4C6D-B4ED-CC0324035099}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA7472D0-DE8F-429C-B68E-5C871E209387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA7472D0-DE8F-429C-B68E-5C871E209387}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA7472D0-DE8F-429C-B68E-5C871E209387}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA7472D0-DE8F-429C-B68E-5C871E209387}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13C710BD-C6E2-488C-B205-2A8A5CA68823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13C710BD-C6E2-488C-B205-2A8A5CA68823}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13C710BD-C6E2-488C-B205-2A8A5CA68823}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13C710BD-C6E2-488C-B205-2A8A5CA68823}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3571299F-61E7-4EE7-8305-ECABF2F7991B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3571299F-61E7-4EE7-8305-ECABF2F7991B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3571299F-61E7-4EE7-8305-ECABF2F7991B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3571299F-61E7-4EE7-8305-ECABF2F7991B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6987E9A0-46D5-4334-ACD1-32FD2C717440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6987E9A0-46D5-4334-ACD1-32FD2C717440}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6987E9A0-46D5-4334-ACD1-32FD2C717440}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6987E9A0-46D5-4334-ACD1-32FD2C717440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F522F2B1-7970-4CB5-93F4-50402CA2A450}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F522F2B1-7970-4CB5-93F4-50402CA2A450}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F522F2B1-7970-4CB5-93F4-50402CA2A450}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F522F2B1-7970-4CB5-93F4-50402CA2A450}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F431FBA-6611-424D-ACF0-71853402E630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F431FBA-6611-424D-ACF0-71853402E630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F431FBA-6611-424D-ACF0-71853402E630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F431FBA-6611-424D-ACF0-71853402E630}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
