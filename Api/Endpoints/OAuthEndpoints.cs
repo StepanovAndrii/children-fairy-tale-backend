@@ -2,20 +2,24 @@
 
 namespace Api.Endpoints
 {
-    public static class AuthEndpoints
+    public static class OAuthEndpoints
     {
         public static void MapAuthEndpoints(this RouteGroupBuilder group)
         {
-            var googleGroup = group.MapGroup("/auth/google");
+            var googleGroup = group.MapGroup("/oauth/google");
 
             googleGroup.MapGet("", ChallengeGoogle);
         }
 
-        private static IResult ChallengeGoogle()
+        private static IResult ChallengeGoogle(HttpContext context)
         {
+            var configuration = context.RequestServices.GetRequiredService<IConfiguration>();
+
+            var redirectUri = configuration["Authentication:RedirectUrl"];
+
             var props = new AuthenticationProperties
             {
-                RedirectUri = "http://localhost:4200"
+                RedirectUri = redirectUri
             };
 
             return Results.Challenge(props, ["Google"]);
