@@ -15,5 +15,11 @@ namespace Persistence.Contexts
         public DbSet<Like> Likes => Set<Like>();
         public DbSet<Paragraph> Paragraphs => Set<Paragraph>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<Language> Languages => Set<Language>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        }
     }
 }
