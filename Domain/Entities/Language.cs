@@ -7,6 +7,6 @@ namespace Domain.Entities
         public int Id { get; set; }
         public required LanguageCode Code { get; set; }
         public required string Name { get; set; }
-        public ICollection<Book> Books { get; set; } = new HashSet<Book>();
+        public ICollection<Story> Books { get; set; } = new HashSet<Story>();
     }
 }

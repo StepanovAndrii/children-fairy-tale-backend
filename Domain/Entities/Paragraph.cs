@@ -11,6 +11,6 @@ namespace Domain.Entities
         public int StartTimeMs { get; set; }
         public int EndTimeMs { get; set; }
         public int ChapterId { get; set; }
-        public required Chapter Chapter { get; set; }
+        public Chapter? Chapter { get; set; }
     }
 }

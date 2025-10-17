@@ -6,6 +6,6 @@ namespace Domain.Entities
     {
         public int ChapterId { get; set; }
         public required Url AudioUrl { get; set; }
-        public required Chapter Chapter { get; set; }
+        public Chapter? Chapter { get; set; }
     }
 }

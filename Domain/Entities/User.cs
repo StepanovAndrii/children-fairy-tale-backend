@@ -1,4 +1,5 @@
-﻿using Domain.ValueObjects;
+﻿using Domain.Enums;
+using Domain.ValueObjects;
 
 namespace Domain.Entities
 {
@@ -6,6 +7,9 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public required string GoogleId { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
+        public int? Age { get; set; }
+        public required string Name { get; set; }
         public required Email Email { get; set; }
         public required string NormalizedEmail { get; set; }
         public Url? ProfilePictureUrl { get; set; }
