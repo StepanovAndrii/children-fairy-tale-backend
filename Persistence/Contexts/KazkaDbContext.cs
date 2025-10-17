@@ -10,7 +10,8 @@ namespace Persistence.Contexts
         ) : base(options) { }
 
         public DbSet<Audio> Audios => Set<Audio>();
-        public DbSet<Book> Books => Set<Book>();
+        public DbSet<Story> Stories => Set<Story>();
+        public DbSet<Category> Categories => Set<Category>();
         public DbSet<Chapter> Chapters => Set<Chapter>();
         public DbSet<Like> Likes => Set<Like>();
         public DbSet<Paragraph> Paragraphs => Set<Paragraph>();
