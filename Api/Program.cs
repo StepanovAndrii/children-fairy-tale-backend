@@ -1,6 +1,7 @@
-using Api.Endpoints;
+﻿using Api.Endpoints;
 using Application.Interfaces.Services;
 using Application.Services;
+using Domain.Enums;
 using Domain.Interfaces.Repositories;
 using Infrastructure.Mappings;
 using Infrastructure.Services;
@@ -16,10 +17,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 MapsterConfiguration.RegisterMapsterConfig();
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddSingleton(TypeAdapterConfig.GlobalSettings);
 builder.Services.AddScoped<IOAuthService, OAuthService>();
+builder.Services.AddScoped<IStoryService, StoryService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IStoryRepository, StoryRepository>();
+builder.Services.AddScoped<IChapterRepository, ChapterRepository>();
+builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<MapsterMapper.IMapper, ServiceMapper>();
+
 builder.Services.AddScoped<Application.Interfaces.IMapper, MapsterMapperAdapter>();
 
 builder.Services.AddAuthentication(options =>
@@ -51,20 +61,34 @@ builder.Services.AddAuthentication(options =>
             || string.IsNullOrWhiteSpace(googleId))
             return;
 
-        await oauthService.RegisterUserAsync(
+        var user = await oauthService.RegisterUserAsync(
             googleId,
             email,
             picture
         );
+
+        var identity = (ClaimsIdentity?)context.Principal!.Identity!;
+        identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
     };
 });
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(
+    options =>
+    {
+        options.AddPolicy("AdminOnly", policy =>
+        {
+            policy.RequireRole(UserRole.Admin.ToString());
+        });
+    }    
+);
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Angular:Development", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(
+                "http://localhost:4200",
+                "https://localhost:7209"
+            )
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
@@ -77,8 +101,18 @@ builder.Services.AddDbContext<KazkaDbContext>(options =>
 
 var app = builder.Build();
 
-var apiGroup = app.MapGroup("/api");
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+var apiGroup = app.MapGroup("/api/v1");
 OAuthEndpoints.MapAuthEndpoints(apiGroup);
+UserEndpoints.MapAuthEndpoints(apiGroup);
+StoryEndpoints.MapAuthEndpoints(apiGroup);
+ChapterEndpoints.MapAuthEndpoints(apiGroup);
+CategoryEndpoints.MapAuthEndpoints(apiGroup);
 
 app.UseCors("Angular:Development");
 app.UseAuthentication();
