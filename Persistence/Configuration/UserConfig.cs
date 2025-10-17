@@ -20,6 +20,11 @@ namespace Persistence.Configuration
                 .ValueGeneratedOnAdd()
                 .IsRequired();
             builder
+                .Property(user => user.Role)
+                .HasConversion<string>()
+                .HasMaxLength(20)
+                .IsRequired();
+            builder
                 .Property(user => user.Email)
                 .HasConversion(
                     email => email.Value,
@@ -29,6 +34,10 @@ namespace Persistence.Configuration
             builder
                 .HasIndex(user => user.Email)
                 .IsUnique();
+            builder
+                .Property(user => user.Name)
+                .HasMaxLength(100)
+                .IsRequired();
             builder
                 .Property(user => user.NormalizedEmail)
                 .HasMaxLength(320)
