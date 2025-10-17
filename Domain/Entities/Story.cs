@@ -2,11 +2,13 @@
 
 namespace Domain.Entities
 {
-    public class Book
+    public class Story
     {
         public int Id { get; set; }
         public required string Title { get; set; }
         public string? Description { get; set; }
+        public int CategoryId { get; set; }
+        public required Category Category { get; set; }
         public Url? CoverPath { get; set; }
         public int LanguageId { get; set; }
         public required Language Language { get; set; }

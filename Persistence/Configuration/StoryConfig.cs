@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Configuration
 {
-    public class BookConfig : IEntityTypeConfiguration<Book>
+    public class StoryConfig : IEntityTypeConfiguration<Story>
     {
-        public void Configure(EntityTypeBuilder<Book> builder)
+        public void Configure(EntityTypeBuilder<Story> builder)
         {
             builder
                 .ToTable("books");
@@ -20,6 +20,10 @@ namespace Persistence.Configuration
             builder
                 .Property(book => book.Description)
                 .HasMaxLength(1000);
+            builder
+                .HasOne(story => story.Category)
+                .WithMany(category => category.Stories)
+                .HasForeignKey(story => story.CategoryId);
             builder
                 .Property(book => book.CoverPath)
                 .HasConversion(
