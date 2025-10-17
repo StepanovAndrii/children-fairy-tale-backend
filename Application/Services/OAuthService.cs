@@ -1,36 +1,28 @@
 ﻿using Application.DTOs.Responses;
-using Application.Interfaces;
 using Application.Interfaces.Services;
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Domain.ValueObjects;
-using MapsterMapper;
 
 namespace Application.Services
 {
-    public class OAuthService: IOAuthService
+    public class OAuthService : IOAuthService
     {
         private readonly IUserRepository _userRepository;
-        private readonly Interfaces.IMapper _mapper;
+
         public OAuthService(
-                IUserRepository userRepository,
-                Interfaces.IMapper mapper
-            )
+            IUserRepository userRepository,
+            Interfaces.IMapper mapper
+        )
         {
             _userRepository = userRepository;
-            _mapper = mapper;
-        }
-
-        public UserInfoResponseDto MapToDto(User user)
-        {
-            return _mapper.Map<UserInfoResponseDto>(user);
         }
 
         public async Task<User> RegisterUserAsync(
-                string googleId,
-                string email,
-                string? profilePictureUrl = null
-            )
+            string googleId,
+            string email,
+            string? profilePictureUrl = null
+        )
         {
             var existingUser = await GetUserInfoAsync(googleId);
 
@@ -46,6 +38,7 @@ namespace Application.Services
             var user = new User
             {
                 GoogleId = googleId,
+                Name = $"user{Guid.NewGuid().ToString()[..8]}",
                 Email = emailVO,
                 NormalizedEmail = emailVO.Normalized,
                 ProfilePictureUrl = profilePictureVO
@@ -54,7 +47,6 @@ namespace Application.Services
             await _userRepository.AddAsync(user);
             return user;
         }
-
         public async Task<bool> UserExistsAsync(string googleId)
         {
             return await _userRepository.ExistsByGoogleIdAsync(googleId);
@@ -67,6 +59,11 @@ namespace Application.Services
         public async Task<User?> GetUserInfoAsync(string googleId)
         {
             return await _userRepository.GetByGoogleIdAsync(googleId);
+        }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            await _userRepository.UpdateAsync(user);
         }
     }
 }

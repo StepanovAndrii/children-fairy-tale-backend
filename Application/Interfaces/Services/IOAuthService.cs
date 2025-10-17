@@ -1,11 +1,11 @@
 ﻿using Application.DTOs.Responses;
 using Domain.Entities;
+using Domain.Interfaces.Repositories;
 
 namespace Application.Interfaces.Services
 {
     public interface IOAuthService
     {
-        UserInfoResponseDto MapToDto(User user);
         Task<User> RegisterUserAsync(
             string googleId,
             string email,
@@ -14,5 +14,6 @@ namespace Application.Interfaces.Services
         Task<bool> UserExistsAsync(string googleId);
         Task<User?> GetUserInfoAsync(int id);
         Task<User?> GetUserInfoAsync(string googleId);
+        Task UpdateUserAsync(User user);
     }
 }
