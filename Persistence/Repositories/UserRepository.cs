@@ -2,6 +2,7 @@
 using Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
+using System.Threading.Tasks;
 
 namespace Persistence.Repositories
 {
@@ -16,12 +17,6 @@ namespace Persistence.Repositories
         public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(User user)
-        {
-            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
         
@@ -45,5 +40,17 @@ namespace Persistence.Repositories
                 .Users
                 .AsNoTracking()
                 .AnyAsync(user => user.GoogleId == googleId);
+
+        public async Task UpdateAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task HardDeleteAsync(User user)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }
