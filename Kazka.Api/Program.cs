@@ -1,6 +1,4 @@
-﻿using Api.Endpoints.Auth;
-using Api.Endpoints.Stories;
-using Infrastructure.Extensions;
+﻿using Infrastructure.Extensions;
 using Infrastructure.Extensions.Security;
 using Infrastructure.Extensions.Security.Authentication;
 using Kazka.Api.Extensions;

@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace Api.Endpoints.Stories
+namespace Kazka.Api.Endpoints.Stories.Create
 {
     public class CreateStory : IEndpoint
     {

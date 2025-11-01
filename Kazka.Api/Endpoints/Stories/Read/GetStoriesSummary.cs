@@ -1,7 +1,7 @@
 ﻿using Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Endpoints.Stories
+namespace Kazka.Api.Endpoints.Stories.Get
 {
     public class GetStoriesSummary: IEndpoint
     {

@@ -1,7 +1,6 @@
-﻿
-using Application.Services;
+﻿using Application.Services;
 
-namespace Api.Endpoints.Stories
+namespace Kazka.Api.Endpoints.Stories.Get
 {
     public class GetChaptersSummary: IEndpoint
     {
