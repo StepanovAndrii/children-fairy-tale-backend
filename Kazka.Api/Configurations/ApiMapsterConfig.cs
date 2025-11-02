@@ -15,12 +15,14 @@ namespace Kazka.Api.Configurations
                 TypeAdapterConfig config
             )
         {
+            // ---- DTOs -> Commands & Queries ----
             config.NewConfig<CreateStoryRequestDto, AddStoryCommand>();
             config.NewConfig<CreateStoryRequestDto.ChapterDto, AddStoryCommand.ChapterRequest>();
             config.NewConfig<CreateStoryRequestDto.ParagraphDto, AddStoryCommand.ParagraphRequest>();
 
             config.NewConfig<UpdateUserRequestDto, UpdateUserCommand>();
 
+            // ---- Commands & Queries -> DTOs ----
             config.NewConfig<GetUsersResponse, UsersResponseDto>();
         }
     }

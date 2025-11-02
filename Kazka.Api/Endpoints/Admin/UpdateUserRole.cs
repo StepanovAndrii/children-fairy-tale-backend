@@ -1,7 +1,7 @@
 ﻿using Api.DTOs.User.Requests;
 using Kazka.Api.Attributes;
 
-namespace Api.Endpoints.Users.Admin
+namespace Kazka.Api.Endpoints.Admin
 {
     [AdminEndpoint]
     public class UpdateUserRole : IEndpoint

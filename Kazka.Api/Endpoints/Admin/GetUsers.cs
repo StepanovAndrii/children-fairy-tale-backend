@@ -1,13 +1,11 @@
-﻿
-using Kazka.Api.Attributes;
-using Kazka.Api.DTOs.User.Requests;
+﻿using Kazka.Api.Attributes;
 using Kazka.Api.DTOs.User.Responses;
 using Kazka.Application.Features.User.Queries.GetAll;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Kazka.Api.Endpoints.Users.Admin
+namespace Kazka.Api.Endpoints.Admin
 {
     [AdminEndpoint]
     public class GetUsers : IEndpoint
@@ -19,12 +17,11 @@ namespace Kazka.Api.Endpoints.Users.Admin
         {
             app.MapGet("users",
                 async (
-                    [FromBody] GetUsersRequestDto dto,
                     ISender mediator,
                     IMapper mapper
                 ) =>
             {
-                var query = mapper.Map<GetUsersQuery>(dto);
+                var query = new GetUsersQuery();
                 var result = await mediator.Send(query);
 
                 if (result is null)

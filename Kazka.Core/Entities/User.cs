@@ -8,11 +8,14 @@ namespace Domain.Entities
         public uint Id { get; private set; }
         public string GoogleId { get; private set; } = null!;
         public UserRole Role { get; private set; }
-        public uint? Age { get; private set; }
+        public byte? Age { get; private set; }
         public string Name { get; private set; } = null!;
         public Email Email { get; private set; } = null!;
         public string NormalizedEmail { get; private set; } = null!;
         public Url? ProfilePictureUrl { get; private set; }
+        // TODO: develop soft delete
+        //public bool IsDeleted { get; private set; }
+        //public DateTime DeletedAt { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
         public ICollection<Like> Likes { get; private set; } = new HashSet<Like>();
@@ -37,6 +40,12 @@ namespace Domain.Entities
                 UpdatedAt = DateTime.UtcNow
             };
         }
+        //public void Delete()
+        //{
+        //    DeletedAt = DateTime.UtcNow;
+        //    IsDeleted = true;
+        //    Touch();
+        //}
         public void UpdateProfilePictureUrl
             (
                 string profilePictureUrl
@@ -56,7 +65,7 @@ namespace Domain.Entities
         }
         public void UpdateAge
             (
-                uint age
+                byte age
             )
         {
             Age = age;

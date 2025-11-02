@@ -22,7 +22,7 @@ namespace Kazka.Application.Features.Users.Handlers.Get
         }
         public async Task<GetUsersResponse> Handle(GetUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await _userBusinessLogic.GetUsersAsync(request);
+            var users = await _userBusinessLogic.GetUsersAsync();
             var userResponces = users
                 .Select(user => 
                     _mapper.Map<UserResponse>(user)

@@ -2,6 +2,7 @@
 using Domain.Interfaces.Repositories;
 using Kazka.Application.Features.User.Command.Update;
 using Kazka.Application.Features.User.Queries.GetAll;
+using Kazka.Application.Features.Users.Queries.Get;
 using Kazka.Application.Interfaces.External;
 using Kazka.Application.Interfaces.Services;
 
@@ -21,7 +22,11 @@ namespace Kazka.Application.BusinessLogic
             _userRepository = userRepository;
         }
 
-        public async Task<List<User>> GetUsersAsync(GetUsersQuery _)
+        public async Task<User?> GetUserAsync(GetUserQuery query)
+        {
+            return await _userRepository.GetByGoogleIdAsync(query.GoogleId);
+        }
+        public async Task<List<User>> GetUsersAsync()
         {
             return await _userRepository.GetAllAsync();
         }
@@ -40,7 +45,7 @@ namespace Kazka.Application.BusinessLogic
             if (user is null)
                 return null;
 
-            if (request.Age is uint age)
+            if (request.Age is byte age)
                 user.UpdateAge(age);
 
             if (request.Name is string name)

@@ -6,7 +6,7 @@ namespace Kazka.Application.Features.User.Command.Update
     public record UpdateUserCommand
     (
         string? Name,
-        uint? Age,
+        byte? Age,
         string? ProfilePictureUrl
     ): IRequest<UserResponse>;
 }

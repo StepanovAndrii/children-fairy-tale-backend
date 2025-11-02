@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Kazka.Application.Features.Users.Handlers.Get;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Infrastructure.Extensions
@@ -8,7 +9,7 @@ namespace Infrastructure.Extensions
         public static IServiceCollection AddApplicationMediator(this IServiceCollection services)
         {
             services.AddMediatR(configuration =>
-                configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+                configuration.RegisterServicesFromAssembly(typeof(GetUserHandler).Assembly));
 
             return services;
         }
