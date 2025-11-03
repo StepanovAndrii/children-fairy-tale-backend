@@ -99,14 +99,3 @@ Run with:
 ```
 
 ---
-
-## Next steps I can help with
-
-- Add example JSON payloads for DTOs (e.g. `CreateStoryRequestDto`, `ChapterDto`) into `ENDPOINTS.md` or this README.
-- Create `run-local.ps1` in the repo.
-- Create a small Dockerfile and `docker-compose.yml` that brings up the API and a PostgreSQL DB for local development.
-- Generate an OpenAPI/Swagger spec with enhanced DTO schemas (I may need to inspect DTO files to generate accurate schemas).
-
----
-
-If you want, I can add this `README.md` to the repository now, generate example payloads, or create the `run-local.ps1` script — tell me which you'd like next.
