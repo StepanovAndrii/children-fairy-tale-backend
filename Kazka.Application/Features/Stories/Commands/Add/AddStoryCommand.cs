@@ -13,7 +13,7 @@ namespace Kazka.Application.Features.Book.Command.Add
             string? CoverPath,
             uint LanguageId,
             ImmutableList<ChapterRequest> Chapters
-        ): IRequest<Stories.Responses.Add.AddStoryResponse>
+        ): IRequest<AddStoryResponse>
     {
         public AddStoryCommand
             (

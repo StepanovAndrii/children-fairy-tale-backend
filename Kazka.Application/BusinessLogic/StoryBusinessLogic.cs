@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Domain.ValueObjects;
 using Kazka.Application.Features.Book.Command.Add;
+using Kazka.Application.Features.Stories.Commands.Update;
 using MapsterMapper;
 
 namespace Application.Services
@@ -65,6 +66,14 @@ namespace Application.Services
             return story;
         }
 
+        public async Task<Story> UpdateStory(UpdateStoryCommand command)
+        {
+            var story = await _storyRepository.GetByIdAsync(command.storyId);
+
+            // TODO: замінити на Result object
+            //if (story is null)
+            //    throw new Exception();
+        }
         public async Task<IEnumerable<Story>> GetAllStories()
         {
             return await _storyRepository.GetAllAsync();
