@@ -1,8 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
-using Kazka.Application.Features.User.Command.Update;
-using Kazka.Application.Features.User.Queries.GetAll;
-using Kazka.Application.Features.Users.Queries.Get;
 using Kazka.Application.Interfaces.External;
 using Kazka.Application.Interfaces.Services;
 
