@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Kazka.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Contexts
@@ -14,6 +15,8 @@ namespace Persistence.Contexts
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Chapter> Chapters => Set<Chapter>();
         public DbSet<Like> Likes => Set<Like>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<StoryCategory> StoryCategories => Set<StoryCategory>();
         public DbSet<Paragraph> Paragraphs => Set<Paragraph>();
         public DbSet<User> Users => Set<User>();
         public DbSet<Language> Languages => Set<Language>();

@@ -12,16 +12,5 @@ namespace Persistence.Repositories
         {
             
         }
-
-        public Task<Category?> GetCategoryByNameAsync
-            (
-                string categoryName
-            )
-        {
-            return _context.Categories
-                .AsNoTracking()
-                .SingleOrDefaultAsync(c => 
-                    c.Name == categoryName);
-        }
     }
 }

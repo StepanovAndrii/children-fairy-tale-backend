@@ -12,25 +12,6 @@ namespace Persistence.Repositories
         {
 
         }
-
-        public async Task<bool> ExistsByGoogleIdAsync(string googleId)
-        {
-            try
-            {
-                var canConnect = await _context.Database.CanConnectAsync();
-                Console.WriteLine($"DB connection: {canConnect}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"DB connection error: {ex}");
-            }
-
-            var answer = await _context.Users
-                .AnyAsync(user => user.GoogleId == googleId);
-
-            return answer;
-        }
-
         public async Task<User?> GetByGoogleIdAsync(
                 string googleId
             )

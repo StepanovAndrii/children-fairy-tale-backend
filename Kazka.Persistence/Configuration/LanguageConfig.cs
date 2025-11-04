@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.SeedGenerators;
@@ -13,19 +12,12 @@ namespace Persistence.Configuration
             builder
                 .ToTable("languages");
             builder
-                .HasKey(language => language.Id);
-            builder
                 .Property(language => language.Code)
-                .HasConversion(
-                    code => code.Value,
-                    value => new LanguageCode(value)
-                )
-                .HasMaxLength(3)
-                .IsRequired();
+                .HasMaxLength(3);
             builder
                 .HasAlternateKey(x => x.Code);
             builder
-                .HasMany(language => language.Books)
+                .HasMany(language => language.Stories)
                 .WithOne(book => book.Language)
                 .HasForeignKey(book => book.LanguageId)
                 .OnDelete(DeleteBehavior.Restrict);

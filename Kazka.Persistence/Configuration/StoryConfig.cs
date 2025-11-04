@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,51 +11,37 @@ namespace Persistence.Configuration
             builder
                 .ToTable("books");
             builder
-                .HasKey(book => book.Id);
-            builder
                 .Property(book => book.Title)
-                .HasMaxLength(256)
-                .IsRequired();
+                .HasMaxLength(256);
             builder
                 .Property(book => book.Description)
                 .HasMaxLength(1000);
             builder
-                .HasOne(story => story.Category)
-                .WithMany(category => category.Stories)
-                .HasForeignKey(story => story.CategoryId);
+                .HasMany(story => story.StoryCategories)
+                .WithOne(storyCategories => storyCategories.Story)
+                .HasForeignKey(story => story.StoryId)
+                .OnDelete(DeleteBehavior.Cascade);
             builder
                 .Property(book => book.CoverPath)
-                .HasConversion(
-                   coverpathUrl => coverpathUrl == null ? null : coverpathUrl.Value,
-                   value => value == null ? null : new Url(value)
-                )
                 .HasMaxLength(2083);
             builder
                 .HasOne(book => book.Language)
-                .WithMany(language => language.Books)
+                .WithMany(language => language.Stories)
                 .HasForeignKey(book => book.LanguageId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired();
+                .OnDelete(DeleteBehavior.Restrict);
             builder
-                .Property<DateTime>("_createdAt")
-                .HasColumnName("CreatedAt")
+                .Property<DateTime>("СreatedAt")
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .ValueGeneratedOnAdd()
-                .IsRequired();
-            builder
-                .Property(book => book.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .ValueGeneratedOnAddOrUpdate()
-                .IsRequired();
+                .ValueGeneratedOnAdd();
             builder
                 .HasMany(book => book.Likes)
-                .WithOne(like => like.Book)
-                .HasForeignKey(like => like.BookId)
+                .WithOne(like => like.Story)
+                .HasForeignKey(like => like.StoryId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder
                 .HasMany(book => book.Chapters)
-                .WithOne(chapter => chapter.Book)
-                .HasForeignKey(chapter => chapter.BookId)
+                .WithOne(chapter => chapter.Story)
+                .HasForeignKey(chapter => chapter.StoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
