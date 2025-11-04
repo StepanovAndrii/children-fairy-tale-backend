@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Kazka.Application\Kazka.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\Security\Authentication\" />
+  </ItemGroup>
+
 </Project>
