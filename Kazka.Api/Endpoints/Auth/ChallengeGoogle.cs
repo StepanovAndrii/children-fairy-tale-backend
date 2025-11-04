@@ -10,7 +10,9 @@ namespace Api.Endpoints.Auth
             )
         {
             app.MapGet("auth/google",
-                ( IConfiguration configuration ) =>
+                ( 
+                    IConfiguration configuration
+                ) =>
             {
                 var redirectUri = configuration["Authentication:RedirectUrl"];
 

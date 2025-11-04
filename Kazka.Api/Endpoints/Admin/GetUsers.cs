@@ -1,8 +1,5 @@
 ﻿using Kazka.Api.Attributes;
-using Kazka.Api.DTOs.User.Responses;
-using Kazka.Application.Features.User.Queries.GetAll;
-using MapsterMapper;
-using MediatR;
+using Kazka.Application.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kazka.Api.Endpoints.Admin
@@ -17,12 +14,10 @@ namespace Kazka.Api.Endpoints.Admin
         {
             app.MapGet("users",
                 async (
-                    ISender mediator,
-                    IMapper mapper
+                    IUserBusinessLogic userBusinessLogic
                 ) =>
             {
-                var query = new GetUsersQuery();
-                var result = await mediator.Send(query);
+                userBusinessLogic.Get
 
                 if (result is null)
                     return Results.NoContent();
