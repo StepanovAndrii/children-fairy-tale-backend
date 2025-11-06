@@ -5,6 +5,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface IStoryRepository: IRepository<Story>
     {
-        
+        Task<Audio> AddAudioAsync(Audio audio);
     }
 }

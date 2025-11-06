@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Domain.ValueObjects;
+using Kazka.Application.DTOs;
 using Kazka.Application.Features.Book.Command.Add;
 using Kazka.Application.Features.Stories.Commands.Update;
 using MapsterMapper;
@@ -77,6 +78,17 @@ namespace Application.Services
         public async Task<IEnumerable<Story>> GetAllStories()
         {
             return await _storyRepository.GetAllAsync();
+        }
+
+        public Task<Story> CreateStoryAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Audio> CreateAudioAsync(CreateAudioRequest request, int categoryId)
+        {
+            var audio = _storyRepository.GetAudioByCategoryIdAsync();
+            await _storyRepository.AddAudioAsync();
         }
     }
 }

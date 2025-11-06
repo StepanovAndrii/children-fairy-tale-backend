@@ -11,5 +11,12 @@ namespace Persistence.Repositories
         {
             
         }
+
+        public async Task<Audio> AddAudioAsync(Audio audio)
+        {
+            await _context.Audios.AddAsync(audio);
+            await _context.SaveChangesAsync();
+            return audio;
+        }
     }
 }

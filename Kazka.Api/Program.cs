@@ -30,68 +30,6 @@ if (jwtSecret is null)
 
 var key = Encoding.UTF8.GetBytes(jwtSecret);
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false, //TODO: зробити Issuer
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuerSigningKey = true
-    };
-}).AddGoogle(options =>
-{
-    builder.Configuration.Bind("Authentication:Google", options);
-
-    options.Events.OnCreatingTicket = async context =>
-    {
-        var googleId = context.Identity?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-        if (string.IsNullOrEmpty(googleId))
-        {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            await context.Response.WriteAsync("Google ID is missing.");
-            return;
-        }
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, googleId),
-                new Claim(JwtRegisteredClaimNames.Email, email ?? ""),
-                new Claim(JwtRegisteredClaimNames.Name, name ?? ""),
-                new Claim(JwtRegisteredClaimNames.Iat,
-                    DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
-            }),
-            Expires = DateTime.UtcNow.AddHours(1),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature)
-        };
-
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        var jwt = tokenHandler.WriteToken(token);
-
-        context.Response.ContentType = "application/json";
-        await context.Response.WriteAsync(JsonSerializer.Serialize(new { token = jwt }));
-        context.Response.StatusCode = StatusCodes.Status200OK;
-    };
-});
-
-builder.Services.AddAuthorization(
-    options =>
-    {
-        options.AddPolicy("AdminOnly", policy =>
-            policy.RequireRole(UserRole.Admin.ToString()));
-    }
-);
-
 var endpointTypes = Assembly.GetExecutingAssembly()
     .GetTypes()
     .Where(type => typeof(IEndpoint).IsAssignableFrom(type)
@@ -112,8 +50,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("Default");
-app.UseAuthentication();
-app.UseAuthorization();
 
 var optionsApi = app.Services
     .GetRequiredService<IOptions<ApiSettings>>()

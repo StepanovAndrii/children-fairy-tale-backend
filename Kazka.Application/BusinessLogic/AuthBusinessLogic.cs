@@ -1,8 +1,6 @@
 ﻿using Application.Interfaces.Services;
 using Domain.Entities;
-using Domain.Enums;
 using Domain.Interfaces.Repositories;
-using Domain.ValueObjects;
 
 namespace Kazka.Application.BusinessLogic
 {
