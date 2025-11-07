@@ -14,9 +14,6 @@ builder.Services.AddApplicationDI();
 builder.Services.AddInfrastractureDI();
 builder.Services.AddPersistenceDI();
 
-// ---- API configuration ----
-builder.Services.AddApiSettings(builder.Configuration);
-
 // ---- CORS ----
 builder.Services.AddCustomCors(builder.Configuration);
 
@@ -35,14 +32,8 @@ builder.Services.AddCustomAuthorization();
 // ---- DbContexts ----
 builder.Services.AddDbContexts(builder.Configuration);
 
-// ---- MediatR ----
-builder.Services.AddApplicationMediator();
-
-// ---- Mapster ----
-builder.Services.AddMapsterConfigurations();
-
 // ---- Endpoints registration ----
-builder.Services.AddAllEndpoints();
+var endpointTypes = builder.Services.AddAllEndpoints();
 
 var app = builder.Build();
 
@@ -58,6 +49,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // ---- Endpoints mapping ----
-app.MapAllEndpoints();
+app.MapAllEndpoints(endpointTypes);
 
 app.Run();
