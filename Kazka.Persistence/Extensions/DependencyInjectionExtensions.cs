@@ -1,4 +1,5 @@
 ﻿using Domain.Interfaces.Repositories;
+using Kazka.Application.BusinessLogic;
 using Kazka.Core.Interfaces.Repositories.Base;
 using Kazka.Persistence.Repositories.Base;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,10 +13,11 @@ namespace Kazka.Persistence.Extensions
         {
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<ILanguageRepository, LanguageRepository>();
-            services.AddScoped<IStoryRepository, StoryRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.Scan(scan => scan
+                .FromAssemblyOf<AuthBusinessLogic>()
+                .AddClasses()
+                .AsMatchingInterface()
+                .WithScopedLifetime());
 
             return services;
         }

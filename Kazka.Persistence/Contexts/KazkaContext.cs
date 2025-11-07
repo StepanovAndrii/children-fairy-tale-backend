@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Kazka.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Contexts
@@ -17,6 +18,7 @@ namespace Persistence.Contexts
         public DbSet<Paragraph> Paragraphs => Set<Paragraph>();
         public DbSet<User> Users => Set<User>();
         public DbSet<Language> Languages => Set<Language>();
+        public DbSet<StoryCategory> StoryCategories => Set<StoryCategory>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

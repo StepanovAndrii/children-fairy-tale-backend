@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,20 +11,10 @@ namespace Persistence.Configuration
             builder
                 .ToTable("paragraphs");
             builder
-                .HasKey(paragraph => paragraph.Id);
-            builder
-                .Property(paragraph => paragraph.ParagraphOrder)
-                .IsRequired();
-            builder
                 .Property(paragraph => paragraph.Text)
-                .HasMaxLength(5000)
-                .IsRequired();
+                .HasMaxLength(5000);
             builder
                 .Property(paragraph => paragraph.ImageUrl)
-                .HasConversion(
-                    url => url.Value,
-                    urlString => new Url(urlString)
-                )
                 .HasMaxLength(2083);
             builder
                 .HasOne(paragraph => paragraph.Chapter)

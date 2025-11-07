@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,12 +19,7 @@ namespace Persistence.Configuration
                 .OnDelete(DeleteBehavior.Cascade);
             builder
                 .Property(audio => audio.AudioUrl)
-                .HasConversion(
-                    audioUrl => audioUrl.Value,
-                    value => new Url(value)
-                )
-                .HasMaxLength(2083)
-                .IsRequired();
+                .HasMaxLength(2083);
         }
     }
 }

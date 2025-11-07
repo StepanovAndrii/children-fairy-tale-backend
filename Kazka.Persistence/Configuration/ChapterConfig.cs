@@ -11,23 +11,12 @@ namespace Persistence.Configuration
             builder
                 .ToTable("chapters");
             builder
-                .HasKey(chapter => chapter.Id);
-            builder
-                .Property(chapter => chapter.Order)
-                .IsRequired();
-            builder
                 .Property(chapter => chapter.Title)
-                .HasMaxLength(100)
-                .IsRequired();
+                .HasMaxLength(100);
             builder
-                .HasOne(chapter => chapter.Book)
+                .HasOne(chapter => chapter.Story)
                 .WithMany(book => book.Chapters)
-                .HasForeignKey(chapter => chapter.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
-            builder
-                .HasMany(chapter => chapter.Paragraphs)
-                .WithOne(paragraph => paragraph.Chapter)
-                .HasForeignKey(paragraph => paragraph.ChapterId)
+                .HasForeignKey(chapter => chapter.StoryId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

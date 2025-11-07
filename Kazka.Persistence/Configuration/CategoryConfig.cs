@@ -9,13 +9,9 @@ namespace Persistence.Configuration
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder
-                .HasKey(category => category.Id);
+                .ToTable("categories");
             builder
                 .HasAlternateKey(category => category.Name);
-            builder
-                .HasMany(category => category.Stories)
-                .WithOne(story => story.Category)
-                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
