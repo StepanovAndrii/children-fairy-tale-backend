@@ -5,8 +5,6 @@ namespace Domain.Interfaces.Repositories
 {
     public interface ICategoryRepository: IRepository<Category>
     {
-        Task<Category?> GetCategoryByNameAsync(
-                string name
-            );
+        
     }
 }
