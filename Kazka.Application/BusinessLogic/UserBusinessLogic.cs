@@ -1,10 +1,9 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
-using Kazka.Application.Features.User.Command.Update;
-using Kazka.Application.Features.User.Queries.GetAll;
-using Kazka.Application.Features.Users.Queries.Get;
 using Kazka.Application.Interfaces.External;
 using Kazka.Application.Interfaces.Services;
+using Kazka.Application.Requests.Commands;
+using Kazka.Application.Results;
 
 namespace Kazka.Application.BusinessLogic
 {
@@ -22,43 +21,27 @@ namespace Kazka.Application.BusinessLogic
             _userRepository = userRepository;
         }
 
-        public async Task<User?> GetUserAsync(GetUserQuery query)
+        public async Task<Result<List<User>>> GetUsersAsync()
         {
-            return await _userRepository.GetByGoogleIdAsync(query.GoogleId);
+            var users = await _userRepository.GetAllAsync();
+            if (users.Any())
+                return Result<List<User>>
+                    .Failure("No users found", ErrorType.NotFound);
+
+            return Result<List<User>>.Success(users, SuccessType.Ok);
         }
-        public async Task<List<User>> GetUsersAsync()
+
+        public async Task<Result<User>> UpdateUserRoleAsync(UpdateUserRoleCommand command)
         {
-            return await _userRepository.GetAllAsync();
-        }
-
-        public async Task<User?> UpdateUserAsync(UpdateUserCommand request)
-        {
-            var userGoogleId = _currentUserService.GoogleId;
-
-            // TODO: take out check into other method? + Result obj
-            if (userGoogleId is null)
-                return null;
-
-            var user = await _userRepository.GetByGoogleIdAsync(userGoogleId);
-
-            // TODO: take out check into other method? + Result obj
+            var user = await _userRepository.GetByIdAsync(command.Id);
             if (user is null)
-                return null;
+                return Result<User>
+                    .Failure($"User with ID {command.Id} was not found", ErrorType.NotFound);
 
-            if (request.Age is byte age)
-                user.UpdateAge(age);
+            user.Role = command.Role;
 
-            if (request.Name is string name)
-                user.UpdateName(name);
-
-            if (request.ProfilePictureUrl is string profileUrl)
-                user.UpdateProfilePictureUrl(profileUrl);
-
-            await _userRepository.UpdateAsync(
-                user
-            );
-
-            return user;
+            await _userRepository.UpdateAsync(user);
+            return Result<User>.Success(user, SuccessType.Ok);
         }
     }
 }

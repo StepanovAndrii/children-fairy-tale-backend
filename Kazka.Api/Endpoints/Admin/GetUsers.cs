@@ -1,13 +1,14 @@
-﻿using Kazka.Api.Attributes;
-using Kazka.Api.DTOs.User.Responses;
-using Kazka.Application.Features.User.Queries.GetAll;
-using MapsterMapper;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Kazka.Api.Attributes;
+using Kazka.Api.Dtos.Responces;
+using Kazka.Api.Extensions;
+using Kazka.Application.Interfaces.Services;
+using Domain.Entities;
 
 namespace Kazka.Api.Endpoints.Admin
 {
     [AdminEndpoint]
+    [EndpointVersion(1)]
     public class GetUsers : IEndpoint
     {
         public void Map
@@ -17,20 +18,24 @@ namespace Kazka.Api.Endpoints.Admin
         {
             app.MapGet("users",
                 async (
-                    ISender mediator,
-                    IMapper mapper
+                    IUserBusinessLogic userBusinessLogic
                 ) =>
             {
-                var query = new GetUsersQuery();
-                var result = await mediator.Send(query);
+                var result = await userBusinessLogic.GetUsersAsync();
 
-                if (result is null)
-                    return Results.NoContent();
+                if (result.IsFailure)
+                    return result.ToActionResult<List<User>, List<UserResponce>>();
 
-                var response = mapper.Map<UsersResponseDto>(result);
-
-                return Results.Ok
-                    (response);
+                return result.ToActionResult(users =>
+                    users.Select(user => new UserResponce
+                    {
+                        Id = user.Id,
+                        Role = user.Role,
+                        Age = user.Age,
+                        Name = user.Name,
+                        Email = user.Email,
+                        ProfilePictureUrl = user.ProfilePictureUrl
+                    }).ToList());
             });
         }
     }

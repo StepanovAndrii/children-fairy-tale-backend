@@ -14,7 +14,7 @@ namespace Kazka.Persistence.Extensions
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             services.Scan(scan => scan
-                .FromAssemblyOf<AuthBusinessLogic>()
+                .FromAssemblyOf<CategoryRepository>()
                 .AddClasses()
                 .AsMatchingInterface()
                 .WithScopedLifetime());

@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Repositories;
 using Kazka.Persistence.Repositories.Base;
-using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
 namespace Persistence.Repositories
@@ -13,13 +12,42 @@ namespace Persistence.Repositories
             
         }
 
-        public async Task<Chapter?> GetChapterByIdAsync(int chapterId)
+        public async Task<Audio> AddAudioAsync(Audio audio)
+        {
+            await _context.Audios.AddAsync(audio);
+            await _context.SaveChangesAsync();
+
+            return audio;
+        }
+
+        public async Task DeleteAudioAsync(int chapterId)
+        {
+            var audio = await _context.Audios.FindAsync(chapterId);
+            if (audio is null)
+                return;
+
+            _context.Audios.Remove(audio);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Audio?> GetAudioAsync(int chapterId)
+        {
+            return await _context.Audios
+                .FindAsync(chapterId);
+        }
+
+        public async Task<Chapter?> GetChapterByIdAsync(int id)
         {
             return await _context.Chapters
-                .Include(chapter => chapter.Paragraphs)
-                .Include(chapter => chapter.Audio)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(chapter => chapter.Id == chapterId);
+                .FindAsync(id);
+        }
+
+        public async Task UpdateAudioAsync(Audio audio)
+        {
+            _context.Audios
+                .Update(audio);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

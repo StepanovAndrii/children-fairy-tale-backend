@@ -4,13 +4,11 @@ namespace Domain.Entities
 {
     public class Story
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
         public required string Title { get; set; }
         public string? Description { get; set; }
-        public uint CategoryId { get; set; }
-        public required Category Category { get; set; }
         public string? CoverPath { get; set; }
-        public uint LanguageId { get; set; }
+        public int LanguageId { get; set; }
         public required Language Language { get; set; }
         public DateTime UpdatedAt { get; set; }
         public ICollection<Like> Likes { get; set; } = new HashSet<Like>();

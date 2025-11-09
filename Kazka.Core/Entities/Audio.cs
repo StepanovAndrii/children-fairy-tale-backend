@@ -2,8 +2,8 @@
 {
     public class Audio
     {
-        public uint ChapterId { get; set; }
-        public required string AudioUrl { get; set; }
+        public int ChapterId { get; set; }
+        public required string AudioPath { get; set; }
         public required Chapter Chapter { get; set; }
     }
 }

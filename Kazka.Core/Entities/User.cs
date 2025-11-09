@@ -4,7 +4,7 @@ namespace Domain.Entities
 {
     public class User
     {
-        public uint Id { get; set; }
+        public int Id { get; set; }
         public required string GoogleId { get; set; }
         public UserRole Role { get; set; }
         public byte? Age { get; set; }

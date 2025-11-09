@@ -18,7 +18,7 @@ namespace Persistence.Configuration
                 .HasForeignKey<Audio>(audio => audio.ChapterId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder
-                .Property(audio => audio.AudioUrl)
+                .Property(audio => audio.AudioPath)
                 .HasMaxLength(2083);
         }
     }

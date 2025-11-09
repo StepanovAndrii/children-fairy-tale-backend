@@ -6,7 +6,7 @@ namespace Kazka.Core.Interfaces.Repositories.Base
         Task<List<T>> GetAllAsync();
         Task<T> AddAsync(T entity);
         Task DeleteAsync(T entity);
-        Task<T?> GetByIdAsync(uint id);
+        Task<T?> GetByIdAsync(int id);
         Task UpdateAsync(T entity);
     }
 }

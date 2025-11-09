@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Services;
-using Kazka.Application.Interfaces.External;
 using Kazka.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +13,12 @@ namespace Kazka.Infrastructure.Extensions
         {
             services.AddScoped<GoogleOAuthEventsHandler>();
             services.AddHttpContextAccessor();
-            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+            services.Scan(scan => scan
+                .FromAssemblyOf<CurrentUserService>()
+                .AddClasses()
+                .AsMatchingInterface()
+                .WithScopedLifetime());
 
             return services;
         }

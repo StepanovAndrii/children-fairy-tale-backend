@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.ValueObjects;
 using System.Globalization;
 
 namespace Persistence.SeedGenerators
@@ -12,10 +11,10 @@ namespace Persistence.SeedGenerators
                 .Where(culture => culture.TwoLetterISOLanguageName != "iv")
                 .Select((culture, index) => new Language
                 {
-                    Id = (uint)index + 1,
-                    Code = new LanguageCode(culture.TwoLetterISOLanguageName)
+                    Id = index + 1,
+                    Code = culture.TwoLetterISOLanguageName
                 })
-                .GroupBy(language => language.Code.Value)
+                .GroupBy(language => language)
                 .Select(group => group.First())
                 .ToList();
         }

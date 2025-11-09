@@ -1,10 +1,10 @@
 ﻿using Application.Interfaces.Services;
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
-using Domain.ValueObjects;
-using Kazka.Application.Features.Book.Command.Add;
-using Kazka.Application.Features.Stories.Commands.Update;
-using MapsterMapper;
+using Kazka.Application.Requests.Commands;
+using Kazka.Application.Requests.Queries;
+using Kazka.Application.Results;
+using Kazka.Core;
 
 namespace Application.Services
 {
@@ -13,70 +13,89 @@ namespace Application.Services
         private readonly ICategoryRepository _categoryRepository;
         private readonly ILanguageRepository _languageRepository;
         private readonly IStoryRepository _storyRepository;
-        private readonly IMapper _mapper;
         public StoryBusinessLogic
             (
                 ICategoryRepository categoryRepository,
                 ILanguageRepository languageRepository,
-                IStoryRepository storyRepository,
-                IMapper mapper
+                IStoryRepository storyRepository
 
             )
         {
             _categoryRepository = categoryRepository;
             _languageRepository = languageRepository;
             _storyRepository = storyRepository;
-            _mapper = mapper;
         }
 
-        public async Task<Story> CreateStoryAsync
-            (
-                AddStoryCommand request
-            )
+        public async Task<Result<Audio>> CreateAudioAsync(CreateAudioCommand command)
         {
-            var category = await _categoryRepository.GetByIdAsync(request.CategoryId);
-            // TODO: add result object return
-            // ?? return Result...
+            var chapter = await _storyRepository.GetChapterByIdAsync(command.ChapterId);
+            if (chapter is null)
+                return Result<Audio>.Failure(
+                    $"Chapter with ID {command.ChapterId} was not found",
+                    ErrorType.NotFound
+                );
+            // TODO: add url format check
+            var audio = new Audio
+            {
+                AudioPath = command.AudioPath,
+                Chapter = chapter
+            };
+            
+            await _storyRepository.AddAudioAsync(audio);
 
-            var language = await _languageRepository.GetByIdAsync(request.LanguageId);
-            // TODO: add result object return
-            // ?? return Result...
+            return Result<Audio>.Success(audio);
+        }
 
-            Url? coverPath = string.IsNullOrWhiteSpace(request.CoverPath)
-                ? null
-                : new Url(request.CoverPath);
+        public async Task<Result<Unit>> DeleteAudioAsync(DeleteAudioCommand command)
+        {
+            await _storyRepository.DeleteAudioAsync(command.ChapterId);
 
-            var story = Story.Create
-                (
-                    request.Title,
-                    category,
-                    language,
-                    request.Description,
-                    coverPath
+            return Result<Unit>.Success(null, SuccessType.NoContent);
+        }
+
+        //public async Task<Result<IEnumerable<Story>>> GetAllStorySummariesAsync(GetStorySummaryQuery query)
+        //{
+            
+        //}
+
+        public async Task<Result<Audio>> GetAudioAsync(GetAudioQuery query)
+        {
+            var audio = await _storyRepository.GetAudioAsync(query.ChapterId);
+            if (audio is null)
+                return Result<Audio>.Failure(
+                    $"Audio with ID {query.ChapterId} was not found",
+                    ErrorType.NotFound
                 );
 
-            foreach (var chapterRequest in request.Chapters)
-            {
-                var chapter = _mapper.Map<Chapter>(chapterRequest);
-                story.AddChapter(chapter);
-            }
-
-            await _storyRepository.AddAsync(story);
-
-            return story;
+            return Result<Audio>.Success
+                (
+                    audio,
+                    SuccessType.Ok
+                );
         }
 
-        public async Task<Story> UpdateStory(UpdateStoryCommand command)
+        public async Task<Result<Audio>> UpdateAudioAsync(UpdateAudioCommand command)
         {
-            var story = await _storyRepository.GetByIdAsync(command.storyId);
+            var chapter = await _storyRepository.GetChapterByIdAsync(command.ChapterId);
+            if (chapter is null)
+                return Result<Audio>.Failure(
+                    $"Chapter with ID {command.ChapterId} was not found",
+                    ErrorType.NotFound
+                );
 
-            // TODO: замінити на Result object
-            //if (story is null)
-            //    throw new Exception();
-        }
-        public async Task<IEnumerable<Story>> GetAllStories()
-        {
-            return await _storyRepository.GetAllAsync();
+            var audio = await _storyRepository.GetAudioAsync(command.ChapterId);
+            if (audio is null)
+                return Result<Audio>.Failure(
+                    $"Audio with ID {command.ChapterId} was not found",
+                    ErrorType.NotFound
+                );
+
+            if (command.AudioPath is not null)
+                audio.AudioPath = command.AudioPath;
+
+            await _storyRepository.UpdateAudioAsync(audio);
+
+            return Result<Audio>.Success(audio, SuccessType.Ok);
         }
     }
 }

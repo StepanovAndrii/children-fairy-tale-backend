@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.Services;
-using Kazka.Application.BusinessLogic;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using System.Security.Claims;
 
@@ -32,29 +31,29 @@ namespace Infrastructure.Services
                     context.Fail(""); // TODO: Add localization
                     return;
                 }
-                if (await _authBusinessLogic.UserExistsAsync(googleId))
-                {
-                    context.Fail("");
-                    return;
-                }
+                //if (await _authBusinessLogic.UserExistsAsync(googleId))
+                //{
+                //    context.Fail("");
+                //    return;
+                //}
 
                 // TODO: user can return as null (realization as can't be null inside)
-                var user = await _authBusinessLogic.RegisterWithGoogleUserAsync
-                    (googleId,
-                    email,
-                    pictureUrl);
+                //var user = await _authBusinessLogic.RegisterWithGoogleUserAsync
+                //    (googleId,
+                //    email,
+                //    pictureUrl);
 
-                if (user is null)
-                {
-                    // TODO: Add logging
-                    context.Fail(""); // TODO: Add localization
-                    return;
-                }
+                //if (user is null)
+                //{
+                //    // TODO: Add logging
+                //    context.Fail(""); // TODO: Add localization
+                //    return;
+                //}
 
                 var identity = context.Principal!.Identity as ClaimsIdentity;
-                identity!.AddClaim(
-                    new Claim(ClaimTypes.Role, user.Role.ToString())
-                );
+                //identity!.AddClaim(
+                //    new Claim(ClaimTypes.Role, nameof(user.Role))
+                //);
             }
             catch (Exception)
             {

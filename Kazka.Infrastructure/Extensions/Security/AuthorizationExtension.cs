@@ -14,7 +14,7 @@ namespace Infrastructure.Extensions.Security
                 options =>
                 {
                     options.AddPolicy("AdminOnly", policy =>
-                        policy.RequireRole(UserRole.Admin.ToString()));
+                        policy.RequireRole(nameof(UserRole.Admin)));
                 }
             );
 

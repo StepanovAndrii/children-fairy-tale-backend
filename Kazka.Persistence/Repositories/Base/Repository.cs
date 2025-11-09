@@ -38,7 +38,7 @@ namespace Kazka.Persistence.Repositories.Base
                 .ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(uint id)
+        public async Task<T?> GetByIdAsync(int id)
         {
             return await _context
                 .Set<T>()

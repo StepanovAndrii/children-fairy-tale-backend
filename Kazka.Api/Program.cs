@@ -1,5 +1,4 @@
-﻿using Infrastructure.Extensions;
-using Infrastructure.Extensions.Security;
+﻿using Infrastructure.Extensions.Security;
 using Infrastructure.Extensions.Security.Authentication;
 using Kazka.Api.Extensions;
 using Kazka.Application.Extensions;
@@ -16,6 +15,9 @@ builder.Services.AddPersistenceDI();
 
 // ---- CORS ----
 builder.Services.AddCustomCors(builder.Configuration);
+
+// ---- Enum to string conversion ----
+builder.Services.AddEnumConversionConfig();
 
 // ---- Swagger ----
 builder.Services.AddEndpointsApiExplorer();
