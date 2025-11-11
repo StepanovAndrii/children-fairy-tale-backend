@@ -4,7 +4,7 @@ using Kazka.Api.Attributes;
 using Kazka.Api.Dtos.Requests;
 using Kazka.Api.Extensions;
 using Kazka.Application.Requests.Commands;
-using Kazka.Core;
+using Kazka.Core.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kazka.Api.Endpoints.NotAdmin.Chapters

@@ -1,5 +1,4 @@
-﻿using Infrastructure.Services;
-using Kazka.Infrastructure.Services;
+﻿using Kazka.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kazka.Infrastructure.Extensions
@@ -11,7 +10,6 @@ namespace Kazka.Infrastructure.Extensions
                 this IServiceCollection services
             )
         {
-            services.AddScoped<GoogleOAuthEventsHandler>();
             services.AddHttpContextAccessor();
 
             services.Scan(scan => scan

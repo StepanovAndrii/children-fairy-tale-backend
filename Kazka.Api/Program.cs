@@ -1,8 +1,9 @@
 ﻿using Infrastructure.Extensions.Security;
-using Infrastructure.Extensions.Security.Authentication;
 using Kazka.Api.Extensions;
 using Kazka.Application.Extensions;
+using Kazka.Infrastructure.Configuration;
 using Kazka.Infrastructure.Extensions;
+using Kazka.Infrastructure.Extensions.Security;
 using Kazka.Persistence.Extensions;
 using Persistence.Extensions;
 
@@ -16,6 +17,12 @@ builder.Services.AddPersistenceDI();
 // ---- CORS ----
 builder.Services.AddCustomCors(builder.Configuration);
 
+// ---- Configuration deserialization ----
+builder.Services.Configure<JwtOptions>(
+    builder.Configuration.GetSection("Jwt"));
+builder.Services.Configure<GoogleOAuthOptions>(
+    builder.Configuration.GetSection("Authentication:Google"));
+
 // ---- Enum to string conversion ----
 builder.Services.AddEnumConversionConfig();
 
@@ -24,11 +31,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // ____ Authentication & Authorization ----
-builder.Services.AddCustomAuthentication
-    (
-        builder.Configuration,
-        builder.Environment
-    );
+builder.Services.AddCustomAuthentication();
 builder.Services.AddCustomAuthorization();
 
 // ---- DbContexts ----

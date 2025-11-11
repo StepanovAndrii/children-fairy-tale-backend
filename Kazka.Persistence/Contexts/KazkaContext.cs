@@ -19,6 +19,7 @@ namespace Persistence.Contexts
         public DbSet<User> Users => Set<User>();
         public DbSet<Language> Languages => Set<Language>();
         public DbSet<StoryCategory> StoryCategories => Set<StoryCategory>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

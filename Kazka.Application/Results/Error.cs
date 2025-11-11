@@ -2,6 +2,7 @@
 {
     public enum ErrorType
     {
+        Unauthorized = 401,
         NotFound = 404
     }
     public class Error

@@ -13,7 +13,7 @@ namespace Kazka.Api.Endpoints.NotAdmin.Auth
             app.MapGet("auth/google",
                 ( IConfiguration configuration ) =>
             {
-                var redirectUri = configuration["Authentication:RedirectUrl"];
+                var redirectUri = configuration.GetSection("Authentication").GetValue<string>("RedirectUrl");
 
                 var props = new AuthenticationProperties
                 {

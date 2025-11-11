@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.Extensions.Security
 {
-    public static class AuthorizationExtension
+    public static class AuthorizationExtensions
     {
         public static IServiceCollection AddCustomAuthorization
             (

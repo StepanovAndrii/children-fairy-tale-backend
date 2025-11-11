@@ -1,4 +1,4 @@
-﻿namespace Kazka.Core
+﻿namespace Kazka.Core.Common
 {
     public sealed class Unit
     {

@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using Kazka.Core.Entities;
 
 namespace Domain.Entities
 {
@@ -13,6 +14,7 @@ namespace Domain.Entities
         public required string NormalizedEmail { get; set; }
         public string? ProfilePictureUrl { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public ICollection<RefreshToken> RefreshTokens { get; set; } = new HashSet<RefreshToken>();
         public ICollection<Like> Likes { get; set; } = new HashSet<Like>();
     }
 }

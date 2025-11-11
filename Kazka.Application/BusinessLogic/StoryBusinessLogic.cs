@@ -4,7 +4,7 @@ using Domain.Interfaces.Repositories;
 using Kazka.Application.Requests.Commands;
 using Kazka.Application.Requests.Queries;
 using Kazka.Application.Results;
-using Kazka.Core;
+using Kazka.Core.Common;
 
 namespace Application.Services
 {
