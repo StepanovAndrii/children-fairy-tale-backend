@@ -37,5 +37,16 @@ namespace Persistence.Repositories
             => await _context.Users
                 .AsNoTracking()
                 .SingleOrDefaultAsync(user => user.GoogleId == googleId);
+
+        public async Task<User?> GetUserByRefreshTokenAsync(string hashedRefreshToken)
+        {
+            var user = await _context.Users
+                .Include(u => u.RefreshTokens)
+                .FirstOrDefaultAsync(user => user.RefreshTokens.Any(
+                    rt => rt.HashedToken == hashedRefreshToken
+                )); 
+
+            return user;
+        }
     }
 }

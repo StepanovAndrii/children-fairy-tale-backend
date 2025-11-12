@@ -1,10 +1,12 @@
 ﻿using Domain.Entities;
 using Kazka.Core.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Contexts
 {
-    public class KazkaContext: DbContext
+    public class KazkaContext: IdentityDbContext<User, IdentityRole<int>, int>
     {
         public KazkaContext(
             DbContextOptions<KazkaContext> options
@@ -16,13 +18,14 @@ namespace Persistence.Contexts
         public DbSet<Chapter> Chapters => Set<Chapter>();
         public DbSet<Like> Likes => Set<Like>();
         public DbSet<Paragraph> Paragraphs => Set<Paragraph>();
-        public DbSet<User> Users => Set<User>();
         public DbSet<Language> Languages => Set<Language>();
         public DbSet<StoryCategory> StoryCategories => Set<StoryCategory>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }

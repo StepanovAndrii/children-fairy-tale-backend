@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Contexts;
@@ -12,25 +11,23 @@ using Persistence.Contexts;
 namespace Kazka.Persistence.Migrations
 {
     [DbContext(typeof(KazkaContext))]
-    [Migration("20251101000559_Migration4")]
-    partial class Migration4
+    partial class KazkaContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.10")
+                .HasAnnotation("ProductVersion", "9.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Entities.Audio", b =>
                 {
-                    b.Property<long>("ChapterId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ChapterId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("AudioUrl")
+                    b.Property<string>("AudioPath")
                         .IsRequired()
                         .HasMaxLength(2083)
                         .HasColumnType("character varying(2083)");
@@ -42,11 +39,11 @@ namespace Kazka.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -56,22 +53,22 @@ namespace Kazka.Persistence.Migrations
 
                     b.HasAlternateKey("Name");
 
-                    b.ToTable("Categories");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Chapter", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("BookId")
-                        .HasColumnType("bigint");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<short>("Order")
                         .HasColumnType("smallint");
+
+                    b.Property<int>("StoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -80,18 +77,18 @@ namespace Kazka.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
+                    b.HasIndex("StoryId");
 
                     b.ToTable("chapters", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Language", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -107,1173 +104,1173 @@ namespace Kazka.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1L,
+                            Id = 1,
                             Code = "aa"
                         },
                         new
                         {
-                            Id = 2L,
+                            Id = 2,
                             Code = "af"
                         },
                         new
                         {
-                            Id = 3L,
+                            Id = 3,
                             Code = "agq"
                         },
                         new
                         {
-                            Id = 4L,
+                            Id = 4,
                             Code = "ak"
                         },
                         new
                         {
-                            Id = 5L,
+                            Id = 5,
                             Code = "am"
                         },
                         new
                         {
-                            Id = 6L,
+                            Id = 6,
                             Code = "ar"
                         },
                         new
                         {
-                            Id = 7L,
+                            Id = 7,
                             Code = "arn"
                         },
                         new
                         {
-                            Id = 8L,
+                            Id = 8,
                             Code = "as"
                         },
                         new
                         {
-                            Id = 9L,
+                            Id = 9,
                             Code = "asa"
                         },
                         new
                         {
-                            Id = 10L,
+                            Id = 10,
                             Code = "ast"
                         },
                         new
                         {
-                            Id = 11L,
+                            Id = 11,
                             Code = "az"
                         },
                         new
                         {
-                            Id = 14L,
+                            Id = 12,
                             Code = "ba"
                         },
                         new
                         {
-                            Id = 15L,
+                            Id = 13,
                             Code = "bas"
                         },
                         new
                         {
-                            Id = 16L,
+                            Id = 14,
                             Code = "be"
                         },
                         new
                         {
-                            Id = 17L,
+                            Id = 15,
                             Code = "bem"
                         },
                         new
                         {
-                            Id = 18L,
+                            Id = 16,
                             Code = "bez"
                         },
                         new
                         {
-                            Id = 19L,
+                            Id = 17,
                             Code = "bg"
                         },
                         new
                         {
-                            Id = 20L,
+                            Id = 18,
                             Code = "bm"
                         },
                         new
                         {
-                            Id = 21L,
+                            Id = 19,
                             Code = "bn"
                         },
                         new
                         {
-                            Id = 22L,
+                            Id = 20,
                             Code = "bo"
                         },
                         new
                         {
-                            Id = 23L,
+                            Id = 21,
                             Code = "br"
                         },
                         new
                         {
-                            Id = 24L,
+                            Id = 22,
                             Code = "brx"
                         },
                         new
                         {
-                            Id = 25L,
+                            Id = 23,
                             Code = "bs"
                         },
                         new
                         {
-                            Id = 28L,
+                            Id = 24,
                             Code = "byn"
                         },
                         new
                         {
-                            Id = 29L,
+                            Id = 25,
                             Code = "ca"
                         },
                         new
                         {
-                            Id = 30L,
+                            Id = 26,
                             Code = "ccp"
                         },
                         new
                         {
-                            Id = 31L,
+                            Id = 27,
                             Code = "ce"
                         },
                         new
                         {
-                            Id = 32L,
+                            Id = 28,
                             Code = "ceb"
                         },
                         new
                         {
-                            Id = 33L,
+                            Id = 29,
                             Code = "cgg"
                         },
                         new
                         {
-                            Id = 34L,
+                            Id = 30,
                             Code = "chr"
                         },
                         new
                         {
-                            Id = 35L,
+                            Id = 31,
                             Code = "ckb"
                         },
                         new
                         {
-                            Id = 36L,
+                            Id = 32,
                             Code = "co"
                         },
                         new
                         {
-                            Id = 37L,
+                            Id = 33,
                             Code = "cs"
                         },
                         new
                         {
-                            Id = 38L,
+                            Id = 34,
                             Code = "cu"
                         },
                         new
                         {
-                            Id = 39L,
+                            Id = 35,
                             Code = "cy"
                         },
                         new
                         {
-                            Id = 40L,
+                            Id = 36,
                             Code = "da"
                         },
                         new
                         {
-                            Id = 41L,
+                            Id = 37,
                             Code = "dav"
                         },
                         new
                         {
-                            Id = 42L,
+                            Id = 38,
                             Code = "de"
                         },
                         new
                         {
-                            Id = 43L,
+                            Id = 39,
                             Code = "dje"
                         },
                         new
                         {
-                            Id = 44L,
+                            Id = 40,
                             Code = "dsb"
                         },
                         new
                         {
-                            Id = 45L,
+                            Id = 41,
                             Code = "dua"
                         },
                         new
                         {
-                            Id = 46L,
+                            Id = 42,
                             Code = "dv"
                         },
                         new
                         {
-                            Id = 47L,
+                            Id = 43,
                             Code = "dyo"
                         },
                         new
                         {
-                            Id = 48L,
+                            Id = 44,
                             Code = "dz"
                         },
                         new
                         {
-                            Id = 49L,
+                            Id = 45,
                             Code = "ebu"
                         },
                         new
                         {
-                            Id = 50L,
+                            Id = 46,
                             Code = "ee"
                         },
                         new
                         {
-                            Id = 51L,
+                            Id = 47,
                             Code = "el"
                         },
                         new
                         {
-                            Id = 52L,
+                            Id = 48,
                             Code = "en"
                         },
                         new
                         {
-                            Id = 53L,
+                            Id = 49,
                             Code = "eo"
                         },
                         new
                         {
-                            Id = 54L,
+                            Id = 50,
                             Code = "es"
                         },
                         new
                         {
-                            Id = 55L,
+                            Id = 51,
                             Code = "et"
                         },
                         new
                         {
-                            Id = 56L,
+                            Id = 52,
                             Code = "eu"
                         },
                         new
                         {
-                            Id = 57L,
+                            Id = 53,
                             Code = "ewo"
                         },
                         new
                         {
-                            Id = 58L,
+                            Id = 54,
                             Code = "fa"
                         },
                         new
                         {
-                            Id = 59L,
+                            Id = 55,
                             Code = "ff"
                         },
                         new
                         {
-                            Id = 61L,
+                            Id = 56,
                             Code = "fi"
                         },
                         new
                         {
-                            Id = 62L,
+                            Id = 57,
                             Code = "fil"
                         },
                         new
                         {
-                            Id = 63L,
+                            Id = 58,
                             Code = "fo"
                         },
                         new
                         {
-                            Id = 64L,
+                            Id = 59,
                             Code = "fr"
                         },
                         new
                         {
-                            Id = 65L,
+                            Id = 60,
                             Code = "fur"
                         },
                         new
                         {
-                            Id = 66L,
+                            Id = 61,
                             Code = "fy"
                         },
                         new
                         {
-                            Id = 67L,
+                            Id = 62,
                             Code = "ga"
                         },
                         new
                         {
-                            Id = 68L,
+                            Id = 63,
                             Code = "gd"
                         },
                         new
                         {
-                            Id = 69L,
+                            Id = 64,
                             Code = "gl"
                         },
                         new
                         {
-                            Id = 70L,
+                            Id = 65,
                             Code = "gn"
                         },
                         new
                         {
-                            Id = 71L,
+                            Id = 66,
                             Code = "gsw"
                         },
                         new
                         {
-                            Id = 72L,
+                            Id = 67,
                             Code = "gu"
                         },
                         new
                         {
-                            Id = 73L,
+                            Id = 68,
                             Code = "guz"
                         },
                         new
                         {
-                            Id = 74L,
+                            Id = 69,
                             Code = "gv"
                         },
                         new
                         {
-                            Id = 75L,
+                            Id = 70,
                             Code = "ha"
                         },
                         new
                         {
-                            Id = 76L,
+                            Id = 71,
                             Code = "haw"
                         },
                         new
                         {
-                            Id = 77L,
+                            Id = 72,
                             Code = "he"
                         },
                         new
                         {
-                            Id = 78L,
+                            Id = 73,
                             Code = "hi"
                         },
                         new
                         {
-                            Id = 79L,
+                            Id = 74,
                             Code = "hr"
                         },
                         new
                         {
-                            Id = 80L,
+                            Id = 75,
                             Code = "hsb"
                         },
                         new
                         {
-                            Id = 81L,
+                            Id = 76,
                             Code = "hu"
                         },
                         new
                         {
-                            Id = 82L,
+                            Id = 77,
                             Code = "hy"
                         },
                         new
                         {
-                            Id = 83L,
+                            Id = 78,
                             Code = "ia"
                         },
                         new
                         {
-                            Id = 84L,
+                            Id = 79,
                             Code = "id"
                         },
                         new
                         {
-                            Id = 85L,
+                            Id = 80,
                             Code = "ig"
                         },
                         new
                         {
-                            Id = 86L,
+                            Id = 81,
                             Code = "ii"
                         },
                         new
                         {
-                            Id = 87L,
+                            Id = 82,
                             Code = "is"
                         },
                         new
                         {
-                            Id = 88L,
+                            Id = 83,
                             Code = "it"
                         },
                         new
                         {
-                            Id = 89L,
+                            Id = 84,
                             Code = "iu"
                         },
                         new
                         {
-                            Id = 91L,
+                            Id = 85,
                             Code = "ja"
                         },
                         new
                         {
-                            Id = 92L,
+                            Id = 86,
                             Code = "jgo"
                         },
                         new
                         {
-                            Id = 93L,
+                            Id = 87,
                             Code = "jmc"
                         },
                         new
                         {
-                            Id = 94L,
+                            Id = 88,
                             Code = "jv"
                         },
                         new
                         {
-                            Id = 95L,
+                            Id = 89,
                             Code = "ka"
                         },
                         new
                         {
-                            Id = 96L,
+                            Id = 90,
                             Code = "kab"
                         },
                         new
                         {
-                            Id = 97L,
+                            Id = 91,
                             Code = "kam"
                         },
                         new
                         {
-                            Id = 98L,
+                            Id = 92,
                             Code = "kde"
                         },
                         new
                         {
-                            Id = 99L,
+                            Id = 93,
                             Code = "kea"
                         },
                         new
                         {
-                            Id = 100L,
+                            Id = 94,
                             Code = "khq"
                         },
                         new
                         {
-                            Id = 101L,
+                            Id = 95,
                             Code = "ki"
                         },
                         new
                         {
-                            Id = 102L,
+                            Id = 96,
                             Code = "kk"
                         },
                         new
                         {
-                            Id = 103L,
+                            Id = 97,
                             Code = "kkj"
                         },
                         new
                         {
-                            Id = 104L,
+                            Id = 98,
                             Code = "kl"
                         },
                         new
                         {
-                            Id = 105L,
+                            Id = 99,
                             Code = "kln"
                         },
                         new
                         {
-                            Id = 106L,
+                            Id = 100,
                             Code = "km"
                         },
                         new
                         {
-                            Id = 107L,
+                            Id = 101,
                             Code = "kn"
                         },
                         new
                         {
-                            Id = 108L,
+                            Id = 102,
                             Code = "ko"
                         },
                         new
                         {
-                            Id = 109L,
+                            Id = 103,
                             Code = "kok"
                         },
                         new
                         {
-                            Id = 110L,
+                            Id = 104,
                             Code = "ks"
                         },
                         new
                         {
-                            Id = 111L,
+                            Id = 105,
                             Code = "ksb"
                         },
                         new
                         {
-                            Id = 112L,
+                            Id = 106,
                             Code = "ksf"
                         },
                         new
                         {
-                            Id = 113L,
+                            Id = 107,
                             Code = "ksh"
                         },
                         new
                         {
-                            Id = 114L,
+                            Id = 108,
                             Code = "kw"
                         },
                         new
                         {
-                            Id = 115L,
+                            Id = 109,
                             Code = "ky"
                         },
                         new
                         {
-                            Id = 116L,
+                            Id = 110,
                             Code = "lag"
                         },
                         new
                         {
-                            Id = 117L,
+                            Id = 111,
                             Code = "lb"
                         },
                         new
                         {
-                            Id = 118L,
+                            Id = 112,
                             Code = "lg"
                         },
                         new
                         {
-                            Id = 119L,
+                            Id = 113,
                             Code = "lkt"
                         },
                         new
                         {
-                            Id = 120L,
+                            Id = 114,
                             Code = "ln"
                         },
                         new
                         {
-                            Id = 121L,
+                            Id = 115,
                             Code = "lo"
                         },
                         new
                         {
-                            Id = 122L,
+                            Id = 116,
                             Code = "lrc"
                         },
                         new
                         {
-                            Id = 123L,
+                            Id = 117,
                             Code = "lt"
                         },
                         new
                         {
-                            Id = 124L,
+                            Id = 118,
                             Code = "lu"
                         },
                         new
                         {
-                            Id = 125L,
+                            Id = 119,
                             Code = "luo"
                         },
                         new
                         {
-                            Id = 126L,
+                            Id = 120,
                             Code = "luy"
                         },
                         new
                         {
-                            Id = 127L,
+                            Id = 121,
                             Code = "lv"
                         },
                         new
                         {
-                            Id = 128L,
+                            Id = 122,
                             Code = "mas"
                         },
                         new
                         {
-                            Id = 129L,
+                            Id = 123,
                             Code = "mer"
                         },
                         new
                         {
-                            Id = 130L,
+                            Id = 124,
                             Code = "mfe"
                         },
                         new
                         {
-                            Id = 131L,
+                            Id = 125,
                             Code = "mg"
                         },
                         new
                         {
-                            Id = 132L,
+                            Id = 126,
                             Code = "mgh"
                         },
                         new
                         {
-                            Id = 133L,
+                            Id = 127,
                             Code = "mgo"
                         },
                         new
                         {
-                            Id = 134L,
+                            Id = 128,
                             Code = "mi"
                         },
                         new
                         {
-                            Id = 135L,
+                            Id = 129,
                             Code = "mk"
                         },
                         new
                         {
-                            Id = 136L,
+                            Id = 130,
                             Code = "ml"
                         },
                         new
                         {
-                            Id = 137L,
+                            Id = 131,
                             Code = "mn"
                         },
                         new
                         {
-                            Id = 139L,
+                            Id = 132,
                             Code = "moh"
                         },
                         new
                         {
-                            Id = 140L,
+                            Id = 133,
                             Code = "mr"
                         },
                         new
                         {
-                            Id = 141L,
+                            Id = 134,
                             Code = "ms"
                         },
                         new
                         {
-                            Id = 142L,
+                            Id = 135,
                             Code = "mt"
                         },
                         new
                         {
-                            Id = 143L,
+                            Id = 136,
                             Code = "mua"
                         },
                         new
                         {
-                            Id = 144L,
+                            Id = 137,
                             Code = "my"
                         },
                         new
                         {
-                            Id = 145L,
+                            Id = 138,
                             Code = "mzn"
                         },
                         new
                         {
-                            Id = 146L,
+                            Id = 139,
                             Code = "naq"
                         },
                         new
                         {
-                            Id = 147L,
+                            Id = 140,
                             Code = "nb"
                         },
                         new
                         {
-                            Id = 148L,
+                            Id = 141,
                             Code = "nd"
                         },
                         new
                         {
-                            Id = 149L,
+                            Id = 142,
                             Code = "nds"
                         },
                         new
                         {
-                            Id = 150L,
+                            Id = 143,
                             Code = "ne"
                         },
                         new
                         {
-                            Id = 151L,
+                            Id = 144,
                             Code = "nl"
                         },
                         new
                         {
-                            Id = 152L,
+                            Id = 145,
                             Code = "nmg"
                         },
                         new
                         {
-                            Id = 153L,
+                            Id = 146,
                             Code = "nn"
                         },
                         new
                         {
-                            Id = 154L,
+                            Id = 147,
                             Code = "nnh"
                         },
                         new
                         {
-                            Id = 155L,
+                            Id = 148,
                             Code = "nqo"
                         },
                         new
                         {
-                            Id = 156L,
+                            Id = 149,
                             Code = "nr"
                         },
                         new
                         {
-                            Id = 157L,
+                            Id = 150,
                             Code = "nso"
                         },
                         new
                         {
-                            Id = 158L,
+                            Id = 151,
                             Code = "nus"
                         },
                         new
                         {
-                            Id = 159L,
+                            Id = 152,
                             Code = "nyn"
                         },
                         new
                         {
-                            Id = 160L,
+                            Id = 153,
                             Code = "oc"
                         },
                         new
                         {
-                            Id = 161L,
+                            Id = 154,
                             Code = "om"
                         },
                         new
                         {
-                            Id = 162L,
+                            Id = 155,
                             Code = "or"
                         },
                         new
                         {
-                            Id = 163L,
+                            Id = 156,
                             Code = "os"
                         },
                         new
                         {
-                            Id = 164L,
+                            Id = 157,
                             Code = "pa"
                         },
                         new
                         {
-                            Id = 167L,
+                            Id = 158,
                             Code = "pl"
                         },
                         new
                         {
-                            Id = 168L,
+                            Id = 159,
                             Code = "prg"
                         },
                         new
                         {
-                            Id = 169L,
+                            Id = 160,
                             Code = "ps"
                         },
                         new
                         {
-                            Id = 170L,
+                            Id = 161,
                             Code = "pt"
                         },
                         new
                         {
-                            Id = 171L,
+                            Id = 162,
                             Code = "qu"
                         },
                         new
                         {
-                            Id = 172L,
+                            Id = 163,
                             Code = "quc"
                         },
                         new
                         {
-                            Id = 173L,
+                            Id = 164,
                             Code = "rm"
                         },
                         new
                         {
-                            Id = 174L,
+                            Id = 165,
                             Code = "rn"
                         },
                         new
                         {
-                            Id = 175L,
+                            Id = 166,
                             Code = "ro"
                         },
                         new
                         {
-                            Id = 176L,
+                            Id = 167,
                             Code = "rof"
                         },
                         new
                         {
-                            Id = 177L,
+                            Id = 168,
                             Code = "ru"
                         },
                         new
                         {
-                            Id = 178L,
+                            Id = 169,
                             Code = "rw"
                         },
                         new
                         {
-                            Id = 179L,
+                            Id = 170,
                             Code = "rwk"
                         },
                         new
                         {
-                            Id = 180L,
+                            Id = 171,
                             Code = "sa"
                         },
                         new
                         {
-                            Id = 181L,
+                            Id = 172,
                             Code = "sah"
                         },
                         new
                         {
-                            Id = 182L,
+                            Id = 173,
                             Code = "saq"
                         },
                         new
                         {
-                            Id = 183L,
+                            Id = 174,
                             Code = "sbp"
                         },
                         new
                         {
-                            Id = 184L,
+                            Id = 175,
                             Code = "sd"
                         },
                         new
                         {
-                            Id = 185L,
+                            Id = 176,
                             Code = "se"
                         },
                         new
                         {
-                            Id = 186L,
+                            Id = 177,
                             Code = "seh"
                         },
                         new
                         {
-                            Id = 187L,
+                            Id = 178,
                             Code = "ses"
                         },
                         new
                         {
-                            Id = 188L,
+                            Id = 179,
                             Code = "sg"
                         },
                         new
                         {
-                            Id = 189L,
+                            Id = 180,
                             Code = "shi"
                         },
                         new
                         {
-                            Id = 192L,
+                            Id = 181,
                             Code = "si"
                         },
                         new
                         {
-                            Id = 193L,
+                            Id = 182,
                             Code = "sk"
                         },
                         new
                         {
-                            Id = 194L,
+                            Id = 183,
                             Code = "sl"
                         },
                         new
                         {
-                            Id = 195L,
+                            Id = 184,
                             Code = "sma"
                         },
                         new
                         {
-                            Id = 196L,
+                            Id = 185,
                             Code = "smj"
                         },
                         new
                         {
-                            Id = 197L,
+                            Id = 186,
                             Code = "smn"
                         },
                         new
                         {
-                            Id = 198L,
+                            Id = 187,
                             Code = "sms"
                         },
                         new
                         {
-                            Id = 199L,
+                            Id = 188,
                             Code = "sn"
                         },
                         new
                         {
-                            Id = 200L,
+                            Id = 189,
                             Code = "so"
                         },
                         new
                         {
-                            Id = 201L,
+                            Id = 190,
                             Code = "sq"
                         },
                         new
                         {
-                            Id = 202L,
+                            Id = 191,
                             Code = "sr"
                         },
                         new
                         {
-                            Id = 205L,
+                            Id = 192,
                             Code = "ss"
                         },
                         new
                         {
-                            Id = 206L,
+                            Id = 193,
                             Code = "ssy"
                         },
                         new
                         {
-                            Id = 207L,
+                            Id = 194,
                             Code = "st"
                         },
                         new
                         {
-                            Id = 208L,
+                            Id = 195,
                             Code = "sv"
                         },
                         new
                         {
-                            Id = 209L,
+                            Id = 196,
                             Code = "sw"
                         },
                         new
                         {
-                            Id = 210L,
+                            Id = 197,
                             Code = "syr"
                         },
                         new
                         {
-                            Id = 211L,
+                            Id = 198,
                             Code = "ta"
                         },
                         new
                         {
-                            Id = 212L,
+                            Id = 199,
                             Code = "te"
                         },
                         new
                         {
-                            Id = 213L,
+                            Id = 200,
                             Code = "teo"
                         },
                         new
                         {
-                            Id = 214L,
+                            Id = 201,
                             Code = "tg"
                         },
                         new
                         {
-                            Id = 215L,
+                            Id = 202,
                             Code = "th"
                         },
                         new
                         {
-                            Id = 216L,
+                            Id = 203,
                             Code = "ti"
                         },
                         new
                         {
-                            Id = 217L,
+                            Id = 204,
                             Code = "tig"
                         },
                         new
                         {
-                            Id = 218L,
+                            Id = 205,
                             Code = "tk"
                         },
                         new
                         {
-                            Id = 219L,
+                            Id = 206,
                             Code = "tn"
                         },
                         new
                         {
-                            Id = 220L,
+                            Id = 207,
                             Code = "to"
                         },
                         new
                         {
-                            Id = 221L,
+                            Id = 208,
                             Code = "tr"
                         },
                         new
                         {
-                            Id = 222L,
+                            Id = 209,
                             Code = "ts"
                         },
                         new
                         {
-                            Id = 223L,
+                            Id = 210,
                             Code = "tt"
                         },
                         new
                         {
-                            Id = 224L,
+                            Id = 211,
                             Code = "twq"
                         },
                         new
                         {
-                            Id = 225L,
+                            Id = 212,
                             Code = "tzm"
                         },
                         new
                         {
-                            Id = 226L,
+                            Id = 213,
                             Code = "ug"
                         },
                         new
                         {
-                            Id = 227L,
+                            Id = 214,
                             Code = "uk"
                         },
                         new
                         {
-                            Id = 228L,
+                            Id = 215,
                             Code = "ur"
                         },
                         new
                         {
-                            Id = 229L,
+                            Id = 216,
                             Code = "uz"
                         },
                         new
                         {
-                            Id = 233L,
+                            Id = 217,
                             Code = "vai"
                         },
                         new
                         {
-                            Id = 236L,
+                            Id = 218,
                             Code = "ve"
                         },
                         new
                         {
-                            Id = 237L,
+                            Id = 219,
                             Code = "vi"
                         },
                         new
                         {
-                            Id = 238L,
+                            Id = 220,
                             Code = "vo"
                         },
                         new
                         {
-                            Id = 239L,
+                            Id = 221,
                             Code = "vun"
                         },
                         new
                         {
-                            Id = 240L,
+                            Id = 222,
                             Code = "wae"
                         },
                         new
                         {
-                            Id = 241L,
+                            Id = 223,
                             Code = "wal"
                         },
                         new
                         {
-                            Id = 242L,
+                            Id = 224,
                             Code = "wo"
                         },
                         new
                         {
-                            Id = 243L,
+                            Id = 225,
                             Code = "xh"
                         },
                         new
                         {
-                            Id = 244L,
+                            Id = 226,
                             Code = "xog"
                         },
                         new
                         {
-                            Id = 245L,
+                            Id = 227,
                             Code = "yav"
                         },
                         new
                         {
-                            Id = 246L,
+                            Id = 228,
                             Code = "yi"
                         },
                         new
                         {
-                            Id = 247L,
+                            Id = 229,
                             Code = "yo"
                         },
                         new
                         {
-                            Id = 248L,
+                            Id = 230,
                             Code = "zgh"
                         },
                         new
                         {
-                            Id = 249L,
+                            Id = 231,
                             Code = "zh"
                         },
                         new
                         {
-                            Id = 252L,
+                            Id = 232,
                             Code = "zu"
                         });
                 });
 
             modelBuilder.Entity("Domain.Entities.Like", b =>
                 {
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
-                    b.Property<long>("BookId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("BookId")
+                        .HasColumnType("integer");
 
                     b.HasKey("UserId", "BookId");
 
@@ -1284,17 +1281,17 @@ namespace Kazka.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Paragraph", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<long>("ChapterId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("ChapterId")
+                        .HasColumnType("integer");
 
-                    b.Property<long>("EndTimeMs")
-                        .HasColumnType("bigint");
+                    b.Property<int>("EndTimeMs")
+                        .HasColumnType("integer");
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(2083)
@@ -1303,8 +1300,8 @@ namespace Kazka.Persistence.Migrations
                     b.Property<int>("ParagraphOrder")
                         .HasColumnType("integer");
 
-                    b.Property<long>("StartTimeMs")
-                        .HasColumnType("bigint");
+                    b.Property<int>("StartTimeMs")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -1320,28 +1317,22 @@ namespace Kazka.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Story", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("CategoryId")
-                        .HasColumnType("bigint");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CoverPath")
                         .HasMaxLength(2083)
                         .HasColumnType("character varying(2083)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.Property<long>("LanguageId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -1349,9 +1340,7 @@ namespace Kazka.Persistence.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("_createdAt")
                         .ValueGeneratedOnAdd()
@@ -1361,41 +1350,45 @@ namespace Kazka.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("books", null, t =>
-                        {
-                            t.Property("CreatedAt")
-                                .HasColumnName("CreatedAt1");
-                        });
+                    b.ToTable("books", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<long?>("Age")
-                        .HasColumnType("bigint");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    b.Property<byte?>("Age")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(320)
                         .HasColumnType("character varying(320)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("GoogleId")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1403,9 +1396,21 @@ namespace Kazka.Persistence.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("NormalizedEmail")
-                        .IsRequired()
                         .HasMaxLength(320)
                         .HasColumnType("character varying(320)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("ProfilePictureUrl")
                         .HasMaxLength(2083)
@@ -1416,9 +1421,23 @@ namespace Kazka.Persistence.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<DateTime>("_createdAt")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedAt")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
                     b.HasKey("Id");
@@ -1429,9 +1448,195 @@ namespace Kazka.Persistence.Migrations
                         .IsUnique();
 
                     b.HasIndex("NormalizedEmail")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("Kazka.Core.Entities.RefreshToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("HashedToken")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("_createdAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedAt")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("refresh_tokens", (string)null);
+                });
+
+            modelBuilder.Entity("Kazka.Core.Entities.StoryCategory", b =>
+                {
+                    b.Property<int>("StoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("StoryId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("story_categories", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Audio", b =>
@@ -1447,13 +1652,13 @@ namespace Kazka.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Chapter", b =>
                 {
-                    b.HasOne("Domain.Entities.Story", "Book")
+                    b.HasOne("Domain.Entities.Story", "Story")
                         .WithMany("Chapters")
-                        .HasForeignKey("BookId")
+                        .HasForeignKey("StoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Book");
+                    b.Navigation("Story");
                 });
 
             modelBuilder.Entity("Domain.Entities.Like", b =>
@@ -1488,26 +1693,99 @@ namespace Kazka.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Story", b =>
                 {
-                    b.HasOne("Domain.Entities.Category", "Category")
-                        .WithMany("Stories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Language", "Language")
-                        .WithMany("Books")
+                        .WithMany("Stories")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("Kazka.Core.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("Domain.Entities.User", "User")
+                        .WithMany("RefreshTokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Kazka.Core.Entities.StoryCategory", b =>
+                {
+                    b.HasOne("Domain.Entities.Category", "Category")
+                        .WithMany("StoryCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Story", "Story")
+                        .WithMany("StoryCategories")
+                        .HasForeignKey("StoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
 
-                    b.Navigation("Language");
+                    b.Navigation("Story");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
+                {
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+                {
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+                {
+                    b.HasOne("Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Category", b =>
                 {
-                    b.Navigation("Stories");
+                    b.Navigation("StoryCategories");
                 });
 
             modelBuilder.Entity("Domain.Entities.Chapter", b =>
@@ -1519,7 +1797,7 @@ namespace Kazka.Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Language", b =>
                 {
-                    b.Navigation("Books");
+                    b.Navigation("Stories");
                 });
 
             modelBuilder.Entity("Domain.Entities.Story", b =>
@@ -1527,11 +1805,15 @@ namespace Kazka.Persistence.Migrations
                     b.Navigation("Chapters");
 
                     b.Navigation("Likes");
+
+                    b.Navigation("StoryCategories");
                 });
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
                     b.Navigation("Likes");
+
+                    b.Navigation("RefreshTokens");
                 });
 #pragma warning restore 612, 618
         }

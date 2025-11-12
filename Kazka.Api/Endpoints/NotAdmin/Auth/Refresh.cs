@@ -1,6 +1,4 @@
 ﻿using Kazka.Api.Attributes;
-using Kazka.Application.Interfaces.External;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Kazka.Api.Endpoints.NotAdmin.Auth
 {
@@ -9,7 +7,14 @@ namespace Kazka.Api.Endpoints.NotAdmin.Auth
     {
         public void Map(IEndpointRouteBuilder app)
         {
-            
+            app.MapPost("tokens/refresh", async
+                (
+                    HttpContext httpContext
+                    
+                ) =>
+            {
+
+            });
         }
     }
 }

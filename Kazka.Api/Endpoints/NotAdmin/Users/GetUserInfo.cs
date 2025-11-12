@@ -1,5 +1,4 @@
 ﻿using Kazka.Api.Attributes;
-using Kazka.Application.Interfaces.External;
 
 namespace Kazka.Api.Endpoints.NotAdmin.Users
 {

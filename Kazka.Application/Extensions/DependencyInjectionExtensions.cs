@@ -1,4 +1,5 @@
 ﻿using Kazka.Application.BusinessLogic;
+using Kazka.Application.Interfaces.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kazka.Application.Extensions
@@ -8,7 +9,7 @@ namespace Kazka.Application.Extensions
         public static IServiceCollection AddApplicationDI(this IServiceCollection services)
         {
             services.Scan(scan => scan
-                .FromAssemblyOf<AuthBusinessLogic>()
+                .FromAssemblyOf<UserBusinessLogic>()
                 .AddClasses()
                 .AsMatchingInterface()
                 .WithScopedLifetime());

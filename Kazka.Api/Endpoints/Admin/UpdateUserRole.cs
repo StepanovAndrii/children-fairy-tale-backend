@@ -39,7 +39,7 @@ namespace Kazka.Api.Endpoints.Admin
                         Id = user.Id,
                         Age = user.Age,
                         Role = user.Role,
-                        Name = user.Name,
+                        Name = user.UserName,
                         Email = user.Email,
                         ProfilePictureUrl = user.ProfilePictureUrl
                     }

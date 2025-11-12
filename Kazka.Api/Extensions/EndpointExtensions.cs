@@ -1,7 +1,7 @@
 ﻿using Kazka.Api.Attributes;
 using System.Reflection;
 using Asp.Versioning;
-using Kazka.Infrastructure.Exceptions;
+using Kazka.Core.Exceptions;
 
 namespace Kazka.Api.Extensions
 {

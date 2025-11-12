@@ -8,5 +8,7 @@ namespace Domain.Interfaces.Repositories
         Task<User?> GetByGoogleIdAsync(
                 string googleId
             );
+
+        Task<User?> GetUserByRefreshTokenAsync(string hashedRefreshToken);
     }
 }

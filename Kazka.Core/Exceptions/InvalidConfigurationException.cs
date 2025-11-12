@@ -1,4 +1,4 @@
-﻿namespace Kazka.Infrastructure.Exceptions
+﻿namespace Kazka.Core.Exceptions
 {
     public class InvalidConfigurationException: Exception
     {

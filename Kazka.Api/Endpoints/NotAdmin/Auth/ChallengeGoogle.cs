@@ -1,5 +1,9 @@
-﻿using Kazka.Api.Attributes;
+﻿using Domain.Entities;
+using Kazka.Api.Attributes;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Kazka.Api.Endpoints.NotAdmin.Auth
 {
@@ -11,16 +15,20 @@ namespace Kazka.Api.Endpoints.NotAdmin.Auth
             )
         {
             app.MapGet("auth/google",
-                ( IConfiguration configuration ) =>
+                (
+                    LinkGenerator linkGenerator,
+                    SignInManager<User> signManager,
+                    HttpContext context
+                ) =>
             {
-                var redirectUri = configuration.GetSection("Authentication").GetValue<string>("RedirectUrl");
+                var callbackUrl = $"{context.Request.Scheme}://{context.Request.Host}{linkGenerator.GetPathByName("GoogleCallback")}";
 
-                var props = new AuthenticationProperties
-                {
-                    RedirectUri = redirectUri
-                };
+                var properies = signManager.ConfigureExternalAuthenticationProperties(
+                    GoogleDefaults.AuthenticationScheme,
+                    callbackUrl
+                );
 
-                return Results.Challenge(props, ["Google"]);
+                return Results.Challenge(properies, ["Google"]);
             })
             .AllowAnonymous();
         }

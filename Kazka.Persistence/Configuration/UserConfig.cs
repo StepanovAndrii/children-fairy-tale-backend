@@ -23,9 +23,6 @@ namespace Persistence.Configuration
                 .HasIndex(user => user.Email)
                 .IsUnique();
             builder
-                .Property(user => user.Name)
-                .HasMaxLength(100);
-            builder
                 .Property(user => user.NormalizedEmail)
                 .HasMaxLength(320);
             builder

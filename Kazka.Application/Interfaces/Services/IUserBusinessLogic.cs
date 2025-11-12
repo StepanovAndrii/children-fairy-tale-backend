@@ -9,9 +9,5 @@ namespace Kazka.Application.Interfaces.Services
     {
         Task<Result<List<User>>> GetUsersAsync();
         Task<Result<User>> UpdateUserRoleAsync(UpdateUserRoleCommand command);
-        Task<Result<(string AccessToken, string RefreshToken)>> AuthenticateUserWithGoogleAsync
-            (
-                ClaimsPrincipal claimsPrincipal
-            );
     }
 }
